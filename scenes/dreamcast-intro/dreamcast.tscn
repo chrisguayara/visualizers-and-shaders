@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bmltiwjrh81ji" path="res://assets/soundfx/select.ogg" id="4_a7r6j"]
 [ext_resource type="AudioStream" uid="uid://duct1msc63v5f" path="res://assets/soundfx/console_music.ogg" id="5_1cxk1"]
 [ext_resource type="Texture2D" uid="uid://o83s1vh38cd0" path="res://assets/models/dissapear_overlay.png" id="6_7ihm3"]
-[ext_resource type="Shader" uid="uid://b43rvxcmqd751" path="res://shaders/dreamcast_buckshotroulette.gdshader" id="7_lmrqx"]
+[ext_resource type="Shader" uid="uid://cgp5fostkcg2f" path="res://shaders/deus_ex.gdshader" id="7_lmrqx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c380s"]
 sky_top_color = Color(0.17482263, 0.50573057, 1, 1)
@@ -1308,16 +1308,13 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lfxu0"]
 shader = ExtResource("7_lmrqx")
-shader_parameter/resolution_x = 640
-shader_parameter/resolution_y = 480
-shader_parameter/color_bit_depth = 8
-shader_parameter/dither_strength = 0.03
-shader_parameter/jitter_amount = 0.001
-shader_parameter/jitter_speed = 0.46
-shader_parameter/jitter_frequency = 90.0
-shader_parameter/chromatic_aberration_strength = 0.0010000000475
-shader_parameter/vignette_strength = 0.3710000176225
-shader_parameter/vignette_radius = 0.9
+shader_parameter/scanlines_1 = 250.0
+shader_parameter/scanlines_2 = 5.125
+shader_parameter/scan_reduction = 0.1
+shader_parameter/blur = 0.35
+shader_parameter/diffusion = 0.205
+shader_parameter/vinnette_alpla = 1.0
+shader_parameter/vinnette_inner_radius = 3.5
 
 [node name="Node3D" type="Node3D" unique_id=841684700]
 script = ExtResource("1_j7okg")
