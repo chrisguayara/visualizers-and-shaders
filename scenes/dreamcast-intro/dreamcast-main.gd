@@ -23,8 +23,10 @@ extends Node3D
 	&"gamedev": $Anims/gamecube,
 	&"art": $Anims/blender
 }
+@onready var loading_screen: CanvasLayer = $LoadingScreen
 
 func _ready() ->void:
+	loading_screen.visible = false
 	plate.visible = false
 	for logo_id in _hover_areas.keys():
 		_anims[logo_id].play("idle")
@@ -48,6 +50,7 @@ func _on_unhover(logo_id: StringName):
 		return
 	plate.visible = false
 	_anims[logo_id].play("idle")
+
 @onready var disappear_overlay: AnimationPlayer = $CanvasLayer/AnimationPlayer
 
 func _on_select(camera: Camera3D, event: InputEvent, position: Vector3, normal: Vector3,shape_idx: int,logo_id: StringName) -> void:
@@ -60,3 +63,7 @@ func _on_select(camera: Camera3D, event: InputEvent, position: Vector3, normal: 
 		select_fx.play()
 		disappear_overlay.play("idle")
 		clicked = true
+		
+
+func _show_loading():
+	loading_screen.visible = true

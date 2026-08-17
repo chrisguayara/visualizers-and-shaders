@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://duct1msc63v5f" path="res://assets/soundfx/console_music.ogg" id="5_1cxk1"]
 [ext_resource type="Texture2D" uid="uid://o83s1vh38cd0" path="res://assets/models/dissapear_overlay.png" id="6_7ihm3"]
 [ext_resource type="Shader" uid="uid://cgp5fostkcg2f" path="res://shaders/deus_ex.gdshader" id="7_lmrqx"]
+[ext_resource type="Texture2D" uid="uid://cfyyn6ttqbhga" path="res://assets/imgs/loading.png" id="7_xj503"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c380s"]
 sky_top_color = Color(0.17482263, 0.50573057, 1, 1)
@@ -1286,7 +1287,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_migm6"]
 resource_name = "idle"
-step = 0.025
+length = 2.0
+step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1294,16 +1296,68 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.25, 0.35, 0.45, 0.55, 0.65000004, 0.75, 0.85),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
+"values": [0, 1, 2, 3, 4, 5, 6, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.9599998),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_show_loading"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_momsk"]
 _data = {
 &"RESET": SubResource("Animation_r15hk"),
 &"idle": SubResource("Animation_migm6")
+}
+
+[sub_resource type="Animation" id="Animation_momsk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6aiyr"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8vyxy"]
+_data = {
+&"RESET": SubResource("Animation_momsk"),
+&"idle": SubResource("Animation_6aiyr")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lfxu0"]
@@ -1387,7 +1441,7 @@ shape = SubResource("SphereShape3D_lfxu0")
 debug_color = Color(0.75796336, 0.18607515, 0.9999998, 0.41960785)
 
 [node name="FLLOGO" type="MeshInstance3D" parent="Main" unique_id=408265215]
-transform = Transform3D(0.28954843, -0.038256664, 0.12948537, 0, 0.3063884, 0.090522975, -0.13501868, -0.08204166, 0.27768224, -3.717, 2.217, 1.157)
+transform = Transform3D(0.28954843, -0.038256668, 0.12948537, 0, 0.3063884, 0.09052298, -0.13501868, -0.08204167, 0.27768224, -3.717, 2.217, 1.157)
 mesh = SubResource("ArrayMesh_3aqw5")
 
 [node name="VSCODE" type="MeshInstance3D" parent="Main" unique_id=1974779334]
@@ -1452,6 +1506,34 @@ hframes = 7
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=1748869576]
 libraries/ = SubResource("AnimationLibrary_momsk")
 
+[node name="LoadingScreen" type="CanvasLayer" parent="." unique_id=1680788987]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingScreen" unique_id=1645258681]
+root_node = NodePath("../Sprite2D")
+libraries/ = SubResource("AnimationLibrary_8vyxy")
+autoplay = &"idle"
+
+[node name="Sprite2D" type="Sprite2D" parent="LoadingScreen" unique_id=892604930]
+position = Vector2(560, 360)
+scale = Vector2(1.75, 1.5)
+texture = ExtResource("7_xj503")
+hframes = 2
+vframes = 2
+
+[node name="Label" type="Label" parent="LoadingScreen" unique_id=961796456]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = 78.0
+offset_right = 63.0
+offset_bottom = 101.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "loading..."
+
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=2066918441]
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2" unique_id=1587815704]
@@ -1464,3 +1546,4 @@ grow_vertical = 2
 mouse_filter = 1
 
 [connection signal="mouse_entered" from="Main/BLENDER_AREA" to="." method="_on_blender_area_mouse_entered"]
+[connection signal="animation_finished" from="CanvasLayer/AnimationPlayer" to="." method="_on_disolve_animation_finished"]
